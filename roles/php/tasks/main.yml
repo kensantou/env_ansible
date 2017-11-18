@@ -1,0 +1,3 @@
+- name: PHP7.0 をインストール
+  sudo: yes
+  apt: pkg=php7.0 state=latest update_cache=yes

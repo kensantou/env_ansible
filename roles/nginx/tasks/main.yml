@@ -1,0 +1,18 @@
+- name: Nginxをインストール
+  sudo: yes
+  apt: pkg=nginx state=latest update_cache=yes
+
+- name: 設定ファイルを設置
+  sudo: yes
+  template: src=roles/nginx/templates/php.cnf dest=/etc/nginx/sites-available/php.cnf
+
+- name: 設定ファイルを読み込み
+  sudo: yes
+  file:
+    src: /etc/nginx/sites-available/php.cnf
+    dest: /etc/nginx/sites-enabled/php.cnf
+    state: link
+
+- name: Nginxを再起動
+  sudo: yes
+  service: name=nginx state=restarted
